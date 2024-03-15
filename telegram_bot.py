@@ -20,8 +20,8 @@ start - Start the bot
 set_language - To choose language of your choice
 """
 
-uuid_number = "UUID_NUMBER"
-bot = Bot(token="TELEGRAM_BOT_TOKEN_KEY")
+uuid_number = "450db250-e214-11ee-b2ea-91f965e38bd9"
+bot = Bot(token="6995946239:AAGv1kilDskSeaIYifrmueibdEoAgFwTl40")
 
 try:
     from telegram import __version_info__
@@ -56,7 +56,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
     """Send a message when the command /start is issued."""
     user_name = update.message.chat.first_name
     welcome_message = (
-        f"Hi {user_name}, Welcome to the <CUSTOM_NAME> bot, "
+        f"Hi {user_name}, Welcome to the Budget bot, "
         "your friendly AI powered bot to answer your queries. "
         "Please be advised not to take these AI generated responses as "
         "standard/correct information. Always consult with the concerned "
@@ -74,9 +74,8 @@ async def relay_handler(update: Update, context: CallbackContext):
 async def language_handler(update: Update, context: CallbackContext):
     english_button = InlineKeyboardButton('English', callback_data='lang_English')
     hindi_button = InlineKeyboardButton('हिंदी', callback_data='lang_Hindi')
-    kannada_button = InlineKeyboardButton('ಕನ್ನಡ', callback_data='lang_Kannada')
 
-    inline_keyboard_buttons = [[english_button], [hindi_button], [kannada_button]]
+    inline_keyboard_buttons = [[english_button], [hindi_button]]
     reply_markup = InlineKeyboardMarkup(inline_keyboard_buttons)
 
     await bot.send_message(chat_id=update.effective_chat.id, text="Choose a Language:", reply_markup=reply_markup)
@@ -92,8 +91,6 @@ async def preferred_language_callback(update: Update, context: CallbackContext):
         text_message = "You have chosen English. \nPlease give your query now"
     elif preferred_language == "Hindi":
         text_message = "आपने हिंदी चुना है। \nआप अपना सवाल अब हिंदी में पूछ सकते हैं।"
-    elif preferred_language == "Kannada":
-        text_message = "ಕನ್ನಡ ಆಯ್ಕೆ ಮಾಡಿಕೊಂಡಿದ್ದೀರಿ. \nದಯವಿಟ್ಟು ಈಗ ನಿಮ್ಮ ಪ್ರಶ್ನೆಯನ್ನು ನೀಡಿ"
 
     await bot.send_message(chat_id=update.effective_chat.id, text=text_message)
 
@@ -164,8 +161,6 @@ async def query_handler(update: Update, context: CallbackContext):
         text_message = "Thank you, allow me to search for the best information to respond to your query."
     elif voice_message_language == "Hindi":
         text_message = "शुक्रीया। मैं आपके प्रश्न के लिए सही जानकरी ढूंढ रही हूं।"
-    elif voice_message_language == "Kannada":
-        text_message = "ಧನ್ಯವಾದ. ನಾನು ಉತ್ತಮ ಮಾಹಿತಿಯನ್ನು ಕಂಡುಕೊಳ್ಳುವವರೆಗೆ ದಯವಿಟ್ಟು ನಿರೀಕ್ಷಿಸಿ"
 
     await bot.send_message(chat_id=update.effective_chat.id, text=text_message)
     await handle_query_response(update, query, voice_message_url, voice_message_language)
